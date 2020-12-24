@@ -11,38 +11,34 @@ Ouput: True (permutations: "taco cat", "atco cta", etc)
 
 /* Pseudo code
 input string s
-1. Create hashset set, create length to count non-whitespace chars
-2. add each char of s to set
-   skip if char is whitespace
-   if char already exists in set, then remove from set
-   else add char to set
-   length++;
-3. Determine its boolean return value
-   if length is an even number && set.size === 0
-      return true
-   else if length is an odd number && set.size === 1
-      return true
-   else return false
+palindrome length property:
+   if s.length is even, freq of each char must be even
+   if s.length is odd, there can only be one char with an odd freq
+1. create variables set, length to count non-whitespace chars
+2. add/remove chars to set
+   for each char in s:
+      if (char == ' '): continue
+      convert char into lowercase letter
+      set.has(char) ? set.remove(char) : set.add(char)
+      length++;
+3. return length % 2 === 0 ? set.size === 0 : set.size === 1;
 */
 
-// Time is O(n), Space is O(n)
+// Time is O(n), Space is O(1) since the set contains at most 26 alphabet chars
 function palindromePermutation(s) {
    const set = new Set();
    let length = 0;
-   for (i in s) {
-      const char = s[i].toLocaleLowerCase();
-      if (char !== ' ') {
-         set.has(char) ? set.delete(char) : set.add(char);
-         length++;
+
+   for (const i in s) {
+      if (s[i] === ' ') {
+         continue;
       }
+      const char = s[i].toLocaleLowerCase();
+      set.has(char) ? set.delete(char) : set.add(char);
+      length++;
    }
-   if (length % 2 === 0 && set.size === 0) {
-      return true;
-   } else if (length % 2 === 1 && set.size === 1) {
-      return true;
-   } else {
-      return false;
-   }
+
+   return length % 2 === 0 ? set.size === 0 : set.size === 1;
 }
 
 console.log(palindromePermutation('Tact Coa')); // true

@@ -10,6 +10,39 @@ Ouput: "Mr%20John%20Smith"
 */
 
 /* Pseduo Code
+input string s, length
+1. create pointers
+    i = length - 1;
+    end = s.length - 1
+2. traverse s until i >= 0
+    while (i >= 0):
+        if (s[i] === ' '):
+            s[end--] = '0';
+            s[end--] = '2';
+            s[end--] = '%';
+        else:
+            s[end--] = s[i];
+        i--;
+*/
+
+// Time is O(n), Space is O(1)
+function URLify(s, length) {
+   let i = length - 1;
+   let end = s.length - 1;
+
+   while (i >= 0) {
+       if (s[i] === ' ') {
+           s[end--] = '0';
+           s[end--] = '2';
+           s[end--] = '%';
+       } else {
+           s[end--] = s[i];
+       }
+       i--;
+   }
+}
+
+/* Pseduo Code
 input string s
 1. Create 2 indices
    j = i = s.length - 1
@@ -26,21 +59,25 @@ input string s
 */
 
 // Time is O(n), Space is O(1)
-function URLify(s) {
-   let i = j = s.length - 1;
-   while (j >= 0 && s[j] === ' ') j--;
-   while (j >= 0) {
-      if (s[j] === ' ') {
+function URLifyWithoutLength(s) {
+   let i = end = s.length - 1;
+   while (end >= 0 && s[end] === ' ') end--;
+   while (end >= 0) {
+      if (s[end] === ' ') {
          s[i--] = '0';
          s[i--] = '2';
          s[i--] = '%';
       } else {
-         s[i--] = s[j];
+         s[i--] = s[end];
       }
-      j--;
+      end--;
    }
 }
 
+const sl = 'Mr John Smith    '.split('');
+URLify(sl, 13);
+console.log(sl);
+
 const s = 'Mr John Smith    '.split('');
-URLify(s);
+URLifyWithoutLength(s);
 console.log(s);

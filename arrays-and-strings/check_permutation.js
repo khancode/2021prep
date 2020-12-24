@@ -1,5 +1,5 @@
 /* Question 1.2
-Check Permutation: given two strings, wrtie a method to check if one is a permutation of the other.
+Check Permutation: given two strings, write a method to check if one is a permutation of the other.
 */
 
 /* Pseudo Code
@@ -16,19 +16,20 @@ Given strings a, b
 4. if code reaches to the end, return map.size === 0
 */
 
-// Time is O(a+b), Space is O(a)
+// Time is O(a) since the algo will only run when lengths of a & b are the same
+// Space is O(1) since the map will contain at most 26 keys (alphabet chars) or 52 keys (case sensitive)
 function checkPermutation(a, b) {
    if (a.length !== b.length) {
       return false;
    }
 
    const map = new Map(); // char -> count
-   for (i in a) {
+   for (const i in a) {
       const char = a[i];
       map.has(char) ? map.set(char, map.get(char) + 1) : map.set(char, 1);
    }
 
-   for (i in b) {
+   for (const i in b) {
       const char = b[i];
       if (map.has(char)) {
          const count = map.get(char);
@@ -41,5 +42,5 @@ function checkPermutation(a, b) {
    return map.size === 0;
 }
 
-console.log(checkPermutation('abc', 'cab')) // true
-console.log(checkPermutation('aabb', 'aaaa')) // false
+console.log(checkPermutation('abc', 'cab')); // true
+console.log(checkPermutation('aabb', 'aaaa')); // false
