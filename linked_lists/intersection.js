@@ -5,57 +5,53 @@ not value. That is, if the kth node of the first linked list is the exact same n
 as the jth node of the second linked list, then they are intersecting.
 */
 
-// Time is O(a+b), Space is O(1) where a & b are the lengths of the two linked lists
-function isIntersection(l1, l2) {
-   if (l1 === null || l2 === null) {
-      return false;
-   }
-   
-   // 1. Get tail & length diff between l1 and l2
-   const l1Result = tailAndLength(l1);
-   const l2Result = tailAndLength(l2);
-   if (l1Result.tail !== l2Result.tail) {
-      return null;
+// Time is O(a+b) where a & b are the lengths of the input linked lists,
+// Space is O(1)
+function getIntersection(headA, headB) {
+   const lengthTailA = lengthAndTail(headA);
+   const lengthTailB = lengthAndTail(headB);
+   if (lengthTailA.tail !== lengthTailB.tail) {
+         return null;
    }
 
-   const l1Length = l1Result.length;
-   const l2Length = l2Result.length;
-   const diff = Math.abs(l1Length - l2Length);
+   const lengthA = lengthTailA.length;
+   const lengthB = lengthTailB.length;
 
-   // 2. traverse longer ll by diff nodes
-   if (l1Length > l2Length) {
-      l1 = traverse(l1, diff);
-   } else if (l1Length < l2Length) {
-      l2 = traverse(l2, diff);
+   // Traverse longer linked list diff nodes
+   let short = lengthA < lengthB ? headA : headB;
+   let long = short === headA ? headB : headA;
+   let diff = Math.abs(lengthA - lengthB);
+   for (let i = 0; i < diff; i++) {
+      long = long.next;
    }
 
-   // 3. iterate and compare l1 & l2 nodes
-   while (l1 !== null) {
-      if (l1 === l2) {
-         return l1;
+   while (short !== null) {
+      if (short === long) {
+         return short;
       }
-      l1 = l1.next;
-      l2 = l2.next;
+      short = short.next;
+      long = long.next;
    }
 
    return null;
 }
 
-function tailAndLength(n) {
-   let length = 1;
-   while (n.next !== null) {
+function lengthAndTail(n) {
+   let length = 0;
+   while (n !== null) {
       length++;
       n = n.next;
    }
    return {length, tail: n};
 }
 
-function traverse(n, diff) {
-   for (let i = 0; i < diff; i++) {
-      n = n.next;
-   }
-   return n;
-}
+/* Pseudo code
+1. Get lengths of both linked lists
+2. Get difference in lengths and set to diff
+3. Traverse longer linked list diff nodes
+4. Traverse both linked lists until they have matching node references or they reach to end of list
+5. return null if code reaches to the bottom
+*/
 
 const SinglyLinkedList = require('../data_structures/SinglyLinkedList');
 const l1 = new SinglyLinkedList();
@@ -77,6 +73,6 @@ l2.head.next.next.next.next = l1.head.next.next.next.next.next.next;
 console.log(l1.toString());
 console.log(l2.toString());
 
-console.log(isIntersection(l1.head, l2.head)); // Node { data: 7 }
+console.log(getIntersection(l1.head, l2.head)); // Node { data: 7 }
 l2.head.next.next = null;
-console.log(isIntersection(l1.head, l2.head)); // null
+console.log(getIntersection(l1.head, l2.head)); // null

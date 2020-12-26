@@ -31,6 +31,44 @@ function partition(head, partition) {
    return left;
 }
 
+/* Pseudo code
+1. Create two linked lists left & right
+2. left will contain all nodes less than x
+   store head pointer
+3. right will contain all nodes >= x
+4. combine both linked lists
+   left.tail.next = right.head;
+5. return left
+*/
+// Time is O(n), Space is O(1)
+function partitionWithDummyHeads(head, partition) {
+   const leftDummyHead = new Node(0);
+   let left = leftDummyHead;
+   const rightDummyHead = new Node(0);
+   let right = rightDummyHead;
+   
+   let n = head;
+   while (n !== null) {
+       if (n.data < partition) {
+           left.next = n;
+           left = left.next;
+       } else {
+           right.next = n;
+           right = right.next;
+       }
+       n = n.next;
+   }
+   
+   // last node of combined list
+   right.next = null;
+   
+   // Combine left & right lists
+   left.next = rightDummyHead.next;
+   
+   return leftDummyHead.next;
+}
+
+const Node = require('../data_structures/Node');
 const SinglyLinkedList = require('../data_structures/SinglyLinkedList');
 const ll = new SinglyLinkedList();
 ll.add(3);

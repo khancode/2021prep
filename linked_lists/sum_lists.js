@@ -16,12 +16,13 @@ Input: (6->1->7) + (2->9->5). That is, 617 + 295
 Output: 9->1->2. That is, 912.
 */
 
-// Time is O(a + b), Space is O(a + b) where a & b are inputted linked lists
+// Time is O(a + b) where a & b are lengths of the input linked lists,
+// Space is O(1)
 function sumLists(l1, l2) {
    let result = new Node();
    const dummyHead = result;
-
    let carry = 0;
+
    while (l1 !== null || l2 !== null) {
       let sum = carry;
       if (l1 !== null) {
@@ -44,7 +45,7 @@ function sumLists(l1, l2) {
    return dummyHead.next;
 }
 
-// Time is O(a + b), Space is O(a + b) where a & b are inputted linked lists
+// Time is O(a + b), Space is O(a + b) where a & b are lengths of the input linked lists,
 function sumListsFollowUp(l1, l2) {
    const l1Length = getLength(l1);
    const l2Length = getLength(l2);

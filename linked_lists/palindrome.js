@@ -28,7 +28,8 @@ function isPalindrome(head) {
    }
 
    // Revert reverse
-   fast = reverse(reversedHead);
+   reverse(reversedHead);
+   
    return true;
 }
 
