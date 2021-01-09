@@ -1,6 +1,6 @@
 class GraphNode {
-    constructor(name=null, children=[]) {
-        this.name = name;
+    constructor(val=null, children=[]) {
+        this.val = val;
         this.children = children;
     }
 }
