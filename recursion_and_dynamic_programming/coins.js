@@ -51,7 +51,7 @@ F(3) = 1 + F(3 - 2) = 1 + F(1) = 1 + 1 = 2
 F(4) = 1 + F(4 - 2) = 1 + F(2) = 1 + 2 = 3
 F(5) = 1 + F(5 - 2) = 1 + F(3) = 1 + 2 = 3
 
-after coins 1 * 2, combine with coin 5
+after coins 1 & 2, combine with coin 5
 F(0) = 1
 F(1) = 1 + 0 = 1
 F(2) = 2 + 0 = 2
