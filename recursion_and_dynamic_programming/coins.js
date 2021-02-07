@@ -24,6 +24,42 @@ function changeBottomUp(amount, coins) {
     return dp[amount];
 }
 
+/* notes
+
+recurrence relation
+F(x) = number of combinations for x amount
+for c in coins:
+    for (let curAmount = 1; i <= amount; i++):
+        compute combinations using c and store in dp[curAmount]
+
+example:
+amount 5, coins = [1, 2, 5]
+
+using coin 1
+F(0) = 1
+F(1) = F(1 - 1) = F(0) = 1
+F(2) = F(2 - 1) = F(1) = 1
+F(3) = F(3 - 1) = F(2) = 1
+F(4) = F(4 - 1) = F(3) = 1
+F(5) = F(5 - 1) = F(4) = 1
+
+after coin 1, combine with coin 2
+F(0) = 1
+F(1) = 1 + 0 = 1
+F(2) = 1 + F(2 - 2) = 1 + F(0) = 1 + 1 = 2
+F(3) = 1 + F(3 - 2) = 1 + F(1) = 1 + 1 = 2
+F(4) = 1 + F(4 - 2) = 1 + F(2) = 1 + 2 = 3
+F(5) = 1 + F(5 - 2) = 1 + F(3) = 1 + 2 = 3
+
+after coins 1 * 2, combine with coin 5
+F(0) = 1
+F(1) = 1 + 0 = 1
+F(2) = 2 + 0 = 2
+F(3) = 2 + 0 = 2
+F(4) = 3 + 0 = 3
+F(5) = 3 + F(5 - 5) = 1 + F(0) = 3 + 1 = 4
+*/
+
 const amount = 75;
 const coins = [1, 5, 10, 25];
 
